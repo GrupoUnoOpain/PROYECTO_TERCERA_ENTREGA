@@ -1,0 +1,81 @@
+.centro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.cargar-data {
+  font-size: 22px;
+  padding: 10px 20px;
+}
+
+.container {
+  text-align: center;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s; /* Agregado para una transición suave de color */
+}
+
+.custom-file-upload:hover {
+  background-color: #2577ae; /* Color al pasar el ratón sobre el botón */
+}
+
+.custom-file-upload:active {
+  background-color: #1c5f83; /* Color al hacer clic en el botón */
+}
+
+.hidden {
+  display: none;
+}
+
+.custom-table {
+  font-size: 12px;
+  width: 80%; /* Puedes ajustar este valor según sea necesario */
+  margin: auto; /* Centra la tabla horizontalmente */
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para oscurecer el contenido detrás del loader */
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.modal-header h3 {
+  text-align: center;
+  margin: 0 auto; /* Asegura que el margen izquierdo y derecho sea automático para centrar */
+}

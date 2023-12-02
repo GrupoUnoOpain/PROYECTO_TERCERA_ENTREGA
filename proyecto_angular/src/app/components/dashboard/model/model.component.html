@@ -1,0 +1,100 @@
+<div class="loader-container" *ngIf="isLoading; else content">
+    <div class="loader"></div>
+</div>
+
+<ng-template #content>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-3 mb-3">
+                <label for="fileInput" class="custom-file-upload">
+                    Cargar Información de los Vuelos
+                </label>
+                <input type="file" id="fileInput" class="hidden" (change)="readExcelFile($event)">
+            </div>
+            <div class="col-md-3 mb-3" *ngIf="isDataLoaded()">
+                <select [(ngModel)]="selectedPrediction" class="form-select w-100" [disabled]="isDataEmpty()"
+                    (change)="changeModel()">
+                    <option value="" disabled selected>Selecciona el tipo de predicción</option>
+                    <option *ngFor="let prediction of stateService.getPredictions()" [value]="prediction.value">{{
+                        prediction.name }}</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3" *ngIf="isSublistVisible()">
+                <select [(ngModel)]="selectedMuelleMarca" class="form-select w-100" [disabled]="isDataEmpty()">
+                    <option value="" disabled selected>Selecciona el muelle o la marca deseada</option>
+                    <option *ngFor="let tipo of stateService.getMuelleMarca()" [value]="tipo.value">{{ tipo.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3" *ngIf="isRunVisible()">
+                <button type="button" class="btn btn-success w-100" (click)="callModel()"
+                    [disabled]="isDataEmpty()">Run</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid py-3" *ngIf="isDataLoaded()">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <h3 class="text-white text-center ps-3">Información de los vuelos</h3>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table custom-table text-center" *ngIf="flights.length > 0">
+                        <thead>
+                            <tr>
+                                <ng-container *ngFor="let columnName of getColumnNames()">
+                                    <ng-container *ngIf="columnName !== 'id'">
+                                        <th class="align-middle">{{ columnName | uppercase }}</th>
+                                    </ng-container>
+                                </ng-container>
+                                <th *ngIf="isDetalleVisible()" class="align-middle">VER RESULTADOS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let flight of flights">
+                                <ng-container *ngFor="let columnName of getColumnNames()">
+                                    <ng-container *ngIf="columnName !== 'id'">
+                                        <td class="align-middle">
+                                            <ng-container *ngIf="columnName === 'STD'; else nonDateColumn">{{ formatDate(flight[columnName]) }}</ng-container>
+                                            <ng-template #nonDateColumn>{{ flight[columnName] }}</ng-template>
+                                        </td>
+                                    </ng-container>
+                                </ng-container>
+                                <td class="align-middle">
+                                    <button *ngIf="isDetalleVisible()" class="btn btn-primary"
+                                        (click)="seeDetail(flight)" data-bs-toggle="modal"
+                                        data-bs-target="#resultsModal">Ver</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        (shown.bs.modal)="onModalShow()">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h3 class="modal-title" id="exampleModalLabel">ESTIMADO DE VENTAS GENERADAS POR VUELO</h3>
+                </div>
+                <div class="modal-body">
+                    <mat-dialog-content class="mat-typography">
+                        <app-results-predict *ngIf="selectedPrediction === 'predict'" #appResultsPredict></app-results-predict>
+                        <app-results-barchar *ngIf="selectedPrediction !== 'predict'" #appResultsBarchar></app-results-barchar>
+                    </mat-dialog-content>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

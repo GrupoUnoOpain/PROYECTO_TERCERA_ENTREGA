@@ -1,0 +1,44 @@
+<div class="row h-100 align-items-center">
+    <!-- Primer componente: Tarjeta de información -->
+    <div class="col-12 col-xl-9 mb-xl-0 mb-4 mx-auto">
+        <div class="card">
+            <div class="card-footer p-3 d-flex flex-wrap justify-content-between">
+                <div class="col-4 mb-2">
+                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder">DESTINO: </span>{{ stateService.getElementSelected()?.destino }}</p>
+                </div>
+                <div class="col-4 mb-2">
+                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder">AEROLÍNEA: </span>{{ stateService.getElementSelected()?.aerolinea }}</p>
+                </div>
+                <div class="col-4 mb-2">
+                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder">PASAJEROS: </span>{{ stateService.getElementSelected()?.pasajerosSaliendo }}</p>
+                </div>
+                <div class="col-4 mb-2">
+                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder">TIPO DE VUELO: </span>{{ stateService.getElementSelected()?.tipoVuelo }}</p>
+                </div>
+                <div class="col-4 mb-2">
+                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder">TIPO AEROLÍNEA: </span>{{ stateService.getElementSelected()?.tipoAerolinea }}</p>
+                </div>
+                <div class="col-4">
+                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder">FECHA: </span>{{ stateService.getElementSelected()?.std }}</p>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-header p-3 pt-2 d-flex justify-content-center align-items-center position-relative">
+                <h2 class="mb-0">MUELLE: {{ stateService.getElementSelected()?.valorVentaMuelle | currency:'USD':'symbol':'1.2-2' }}</h2>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Segundo componente: Gráfico de barras -->
+    <div style="display: flex; justify-content: center; align-items: center; height: 70vh;">
+        <div style="width: 90%; height: 70%;">
+            <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    chartType="bar">
+            </canvas>
+        </div>
+    </div>
+</div>
