@@ -37,10 +37,6 @@ Esta carpeta contiene todos los archivos utilizados para la generación de los m
 
 
 ### - **proyecto_angular** 
-Esta carpeta contiene los archivos de la aplicación web angular desarrollada para utilizar los modelos de machine learning.
-
-
-### - **proyecto_angular** 
 Esta carpeta contiene los archivos de la aplicación web angular (frontend) desarrollada para utilizar los modelos de machine learning.
 
 
