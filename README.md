@@ -26,6 +26,12 @@ Adicionalmente y debido al peso del archivo **“trained_colineal_models.pkl”*
 
 Ruta: proyecto_python/model/trained_colineal_models.pkl
 
+# **BONO despliegue en la nube:**
+
+A continuación se adjunta el enlace al video en el cual se evidencia el sistema desplegado en la nube (AWS)
+
+https://www.youtube.com/watch?v=iDQJf83kZzY&t=3s
+
 
 ## **Carpetas**
 
